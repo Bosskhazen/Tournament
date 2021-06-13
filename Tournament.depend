@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1623004632 source:c:\amine\prog\projects\tournament\group.cpp
+	"Group.h"
+
+1623004632 c:\amine\prog\projects\tournament\group.h
+	<vector>
+	<iostream>
+	"Team.h"
+	"Match.h"
+
+1623004632 c:\amine\prog\projects\tournament\team.h
+	<string>
+	<iostream>
+
+1623004632 c:\amine\prog\projects\tournament\match.h
+	<array>
+	<iostream>
+	"Team.h"
+
+1623004632 source:c:\amine\prog\projects\tournament\main.cpp
+	<iostream>
+	"Team.h"
+	"Match.h"
+	"Group.h"
+
+1623004632 source:c:\amine\prog\projects\tournament\match.cpp
+	"Match.h"
+
+1623004632 source:c:\amine\prog\projects\tournament\team.cpp
+	"Team.h"
+
