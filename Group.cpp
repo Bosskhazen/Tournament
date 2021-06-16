@@ -6,6 +6,7 @@ using namespace std;
 Group::Group()  {
     this->settingGroup();
     this->fillingGroup();
+    this->settingSchedule();
 }
 // INTERFACE
 void Group::settingGroup(){
@@ -31,17 +32,31 @@ void Group::fillingGroup() {
     for(size_t i(0); i < nbTeam; ++i){
         cin >> teamName;
         table.push_back(Team(teamName));
-        //table[i](teamName);
     }
+}
+void Group::shiftingTable(vector<Team>& t){
+    t.push_back(t.back());
+    for(size_t i(t.size()-2); i >= 2; --i){
+        t[i] = t[i-1];
+    }
+    t[1] = t.back();
+    t.pop_back();
 }
 void Group::settingSchedule() {
     int nbLeg = table.size()-1; //The number of legs in any competition is the number of Teams -1
-    //if(away_matches) {nbLeg *= 2;} // The number of legs is multiplated by 2 in case of home/Away matches (LOGIC)
-    for(int i(0); i < nbLeg; ++i){
-        calendar.push_back(vector<Match>());
+    if(away_matches) { // The number of legs in a group/league is multiplicated by 2 in case of home/Away matches (LOGIC)
+        nbLeg *= 2;
     }
-
-
+    for(int i(0); i < nbLeg; ++i){
+        calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matchs
+    }
+    vector<Team> copieTable (table);
+    for(int i(0); i < nbLeg; ++i){ // To go through all legs
+        for (int j(0); j < (copieTable.size()/2)-1; ++j){ //To add matchs for every legs
+            calendar[i].push_back(Match(copieTable[j], copieTable[copieTable.size()-1-j])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
+        }
+        shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programmation
+    }
 }
 void Group::playingMatches() {
     /*cout << "1st leg : \n";
