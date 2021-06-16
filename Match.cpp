@@ -4,7 +4,7 @@ using namespace std;
 
 //----------------------CLASS INTERFACE-------------------------------------
 // CONSTRUCTOR
-Match::Match(Team& a, Team& b) : home_team(a), away_team(b), result({0,0}) {this->playing();}
+Match::Match(Team& a, Team& b) : home_team(a), away_team(b), result({0,0}) {}
 // INTERFACE
 void Match::playing() {
     // Reading match results

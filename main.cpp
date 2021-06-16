@@ -16,10 +16,13 @@ ostream& operator<<(ostream& out, Group const& g){
     return g.displayGroup(out);
 }
 
+
 int main()
 {
     Group champ;
-    cout << champ;
+    champ.settingSchedule();
+
+    champ.displaySchedule();
 
     champ.playingMatches();
     champ.rankingTeams();

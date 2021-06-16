@@ -6,20 +6,19 @@ using namespace std;
 Group::Group()  {
     this->settingGroup();
     this->fillingGroup();
-    this->settingSchedule();
 }
 // INTERFACE
 void Group::settingGroup(){
-    char leg;
+    /*char leg;
     do{
         cout << "Please enter if there will be home/away games (y/n) : ";
         cin >> leg;
     } while ((leg != 'y') and (leg != 'n'));
     if(leg == 'y'){
         away_matches = true;
-    } else {
+    } else {*/
         away_matches = false;
-    }
+    /*}*/
 }
 void Group::fillingGroup() {
     size_t nbTeam = 0;
@@ -34,19 +33,12 @@ void Group::fillingGroup() {
         table.push_back(Team(teamName));
     }
 }
-void Group::shiftingTable(vector<Team>& t){
-    t.push_back(t.back());
-    for(size_t i(t.size()-2); i >= 2; --i){
-        t[i] = t[i-1];
-    }
-    t[1] = t.back();
-    t.pop_back();
-}
+
 void Group::settingSchedule() {
     int nbLeg = table.size()-1; //The number of legs in any competition is the number of Teams -1
-    if(away_matches) { // The number of legs in a group/league is multiplicated by 2 in case of home/Away matches (LOGIC)
+    /*if(away_matches) { // The number of legs in a group/league is multiplicated by 2 in case of home/Away matches (LOGIC)
         nbLeg *= 2;
-    }
+    }*/
     for(int i(0); i < nbLeg; ++i){
         calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matchs
     }
@@ -59,22 +51,21 @@ void Group::settingSchedule() {
     }
 }
 void Group::playingMatches() {
-    /*cout << "1st leg : \n";
-    calendar.push_back(Match(table[0], table[1]));
-    calendar.push_back(Match(table[2], table[3]));
-    cout << "2nd leg : \n";
-    calendar.push_back(Match(table[0], table[2]));
-    calendar.push_back(Match(table[1], table[3]));
-    cout << "3rd leg : \n";
-    calendar.push_back(Match(table[0], table[3]));
-    calendar.push_back(Match(table[1], table[2]));*/
+    for(size_t i(0); i < calendar.size(); ++i){
+        // This block is for announcing each leg
+        cout << i+1;
+        if((i+1) == 1){ cout << "st leg : \n"; }
+        else if((i+1) == 2){ cout << "nd leg : \n";}
+        else if((i+1) == 3){ cout << "rd leg : \n";}
+        else{cout << "th leg : \n";}
+        //End of the announcing block
+        for(size_t j(0); j < calendar[i].size(); ++j){
+            calendar[i][j].playing();
+        }
+    }
+
 }
-void Group::swapTeams(size_t i, size_t j) {
-    table.push_back(table[i]);
-    table[i] = table[j];
-    table[j] = table.back();
-    table.pop_back();
-}
+
 void Group::rankingTeams() {
     for(size_t i(0); i < table.size()-1; ++i){
         for(size_t j(table.size()-1); j > i; --j){
@@ -97,4 +88,30 @@ ostream& Group::displayGroup(ostream& out) const{
         }
     }
     return out;
+}
+void Group::displaySchedule() const{
+    for(size_t i(0); i < calendar.size(); ++i){
+        cout << "leg " << i+1 << " : \n";
+        for(size_t j(0); j < calendar[i].size(); ++j){
+            cout << calendar[i][j].home_team.getName()
+                << " - "
+                << calendar[i][j].away_team.getName() << "\n";
+        }
+    }
+}
+
+// PRIVATE METHODS
+void Group::shiftingTable(vector<Team>& t){
+    t.push_back(t.back());
+    for(size_t i(t.size()-2); i >= 2; --i){
+        t[i] = t[i-1];
+    }
+    t[1] = t.back();
+    t.pop_back();
+}
+void Group::swapTeams(size_t i, size_t j) {
+    table.push_back(table[i]);
+    table[i] = table[j];
+    table[j] = table.back();
+    table.pop_back();
 }
