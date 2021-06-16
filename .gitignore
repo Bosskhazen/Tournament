@@ -32,7 +32,6 @@
 *.app
 
 # Code::Block project files
-*.cbp
 *.depend
 *.layout
 
