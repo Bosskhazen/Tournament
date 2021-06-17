@@ -43,12 +43,25 @@ void Group::settingSchedule() {
         calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matchs
     }
     vector<Team> copieTable (table);
-    for(int i(0); i < nbLeg; ++i){ // To go through all legs
-        for (int j(0); j < (copieTable.size()/2)-1; ++j){ //To add matchs for every legs
+    for(size_t i(0); i < nbLeg; ++i){ // To go through all legs
+        for (size_t j(0); j < (copieTable.size()/2); ++j){ //To add matchs for every legs
             calendar[i].push_back(Match(copieTable[j], copieTable[copieTable.size()-1-j])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
+
         }
+        //calendar[0][0].displayResult();
         shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programmation
     }
+
+
+    /*for (int i(0); i < calendar.size(); ++i){
+        cout << "IS THERE A PROBLEM \n";
+        for(int j(0); j < calendar[i].size(); ++j) {
+                cout << "IS THERE A PROBLEM \n";
+            calendar[i][j].displayResult();
+
+        }
+    }*/
+
 }
 void Group::playingMatches() {
     for(size_t i(0); i < calendar.size(); ++i){

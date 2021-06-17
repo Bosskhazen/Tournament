@@ -29,6 +29,4 @@ private:
 };
 
 
-
-
 #endif // COMPETITION_H_INCLUDED

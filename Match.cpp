@@ -34,6 +34,12 @@ ostream& Match::displayResult(ostream& out) const{
         << "\n";
     return out;
 }
+void Match::displayResult() const{
+    cout << home_team.getName() << " " << result[0]
+    << " - " << result[1] << " " << away_team.getName()
+    << "\n";
+
+}
 
 
 
