@@ -36,32 +36,29 @@ void Group::fillingGroup() {
 
 void Group::settingSchedule() {
     int nbLeg = table.size()-1; //The number of legs in any competition is the number of Teams -1
-    /*if(away_matches) { // The number of legs in a group/league is multiplicated by 2 in case of home/Away matches (LOGIC)
+    /*if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
         nbLeg *= 2;
     }*/
     for(int i(0); i < nbLeg; ++i){
-        calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matchs
+        calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matches
     }
     vector<Team> copieTable (table);
-    for(size_t i(0); i < nbLeg; ++i){ // To go through all legs
-        for (size_t j(0); j < (copieTable.size()/2); ++j){ //To add matchs for every legs
-            calendar[i].push_back(Match(copieTable[j], copieTable[copieTable.size()-1-j])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
-
+    size_t teamH; //to store the home team position in the original table
+    size_t teamA; //to store the away team posision in the original table
+    for(int i(0); i < nbLeg; ++i){ // To go through all legs
+        for (size_t j(0); j < (copieTable.size()/2); ++j){ //To add matches for every legs
+            for(size_t k(0); k < table.size(); ++k){
+                if(copieTable[j].getName() == table[k].getName()){
+                    teamH = k;
+                }
+                if(copieTable[copieTable.size()-1-j].getName() == table[k].getName()){
+                    teamA = k;
+                }
+            }
+            calendar[i].push_back(Match(table[teamH], table[teamA])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
         }
-        //calendar[0][0].displayResult();
-        shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programmation
+        shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programming
     }
-
-
-    /*for (int i(0); i < calendar.size(); ++i){
-        cout << "IS THERE A PROBLEM \n";
-        for(int j(0); j < calendar[i].size(); ++j) {
-                cout << "IS THERE A PROBLEM \n";
-            calendar[i][j].displayResult();
-
-        }
-    }*/
-
 }
 void Group::playingMatches() {
     for(size_t i(0); i < calendar.size(); ++i){
