@@ -11,13 +11,14 @@ Current development status:
 - Reading and storing match results
 - Ranking
 - Displaying groups and ranks
+- Calendar generator for groups with an even number of teams
+- Displaying calendar
+- Calendar generator for groups with an odd number of teams
 
 Features to add:
-- Calendar generator for groups with an even number of teams
 - Groups with home/away matchs
-- Calendar generator for groups with an odd number of teams
 - Handling tournaments with multiple groups
 - Handling group qualifications
 - Handling direct qualification matchs
 - User interface
-- Saving and exporrting results to a readable file
+- Saving and exporting calendar and results to a readable file
