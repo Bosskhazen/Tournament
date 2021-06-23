@@ -22,32 +22,35 @@ void Group::settingGroup(){
 }
 void Group::fillingGroup() {
     size_t nbTeam = 0;
-    do{
-        cout << "Please enter the number of teams competing (an even number) : ";
-        cin >> nbTeam;
-    } while(nbTeam%2 != 0);
+    cout << "Please enter the number of teams per group : ";
+    cin >> nbTeam;
     cout << "Please enter the competing teams : ";
     string teamName;
     for(size_t i(0); i < nbTeam; ++i){
         cin >> teamName;
         table.push_back(Team(teamName));
     }
+    if(table.size()%2 != 0){ //Adding a dummy team for groups with an odd number of teams
+        table.push_back(Team("dummy"));
+    }
+
 }
 
 void Group::settingSchedule() {
     int nbLeg = table.size()-1; //The number of legs in any competition is the number of Teams -1
-    /*if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
+    if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
         nbLeg *= 2;
-    }*/
+    }
     for(int i(0); i < nbLeg; ++i){
         calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matches
     }
-    vector<Team> copieTable (table);
+    vector<Team> copieTable(table);
     size_t teamH; //to store the home team position in the original table
     size_t teamA; //to store the away team posision in the original table
+
     for(int i(0); i < nbLeg; ++i){ // To go through all legs
         for (size_t j(0); j < (copieTable.size()/2); ++j){ //To add matches for every legs
-            for(size_t k(0); k < table.size(); ++k){
+            for(size_t k(0); k < table.size(); ++k){ //This loop is for collecting the team index from the original table and not from the shifting copieTable
                 if(copieTable[j].getName() == table[k].getName()){
                     teamH = k;
                 }
@@ -55,10 +58,13 @@ void Group::settingSchedule() {
                     teamA = k;
                 }
             }
-            calendar[i].push_back(Match(table[teamH], table[teamA])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
+            if((table[teamH].getName() != "dummy") and (table[teamA].getName() != "dummy")){ //too avoid adding matches with a dummy team in group with an odd number of teams
+                calendar[i].push_back(Match(table[teamH], table[teamA])); //Add match between the first and the last in the table then the second and the penultimate, etc.....
+            }
         }
         shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programming
     }
+
 }
 void Group::playingMatches() {
     for(size_t i(0); i < calendar.size(); ++i){
