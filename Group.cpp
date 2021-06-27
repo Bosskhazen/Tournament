@@ -64,8 +64,27 @@ void Group::settingSchedule() {
         }
         shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programming
     }
-
+    invertingAwayGames();//Inverting away games
 }
+
+void Group::invertingAwayGames(){
+    size_t teamH;
+    size_t teamA;
+    for(size_t i = calendar.size()/2; i < calendar.size(); ++i){
+        for(size_t j = 0; j < calendar[i].size(); ++j){
+            for(size_t k = 0; k < table.size(); ++ k){ //This loop is for collecting the team index from the original table
+                if(calendar[i][j].home_team.getName() == table[k].getName()){
+                    teamA = k;
+                }
+                if(calendar[i][j].away_team.getName() == table[k].getName()){
+                    teamH = k;
+                }
+            }
+            calendar[i][j] = Match(table[teamH], table[teamA]); // Creating the new match with inverted teams
+        }
+    }
+}
+
 void Group::playingMatches() {
     for(size_t i(0); i < calendar.size(); ++i){
         // This block is for announcing each leg

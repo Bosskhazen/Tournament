@@ -17,10 +17,12 @@ public:
     void rankingTeams(); // Re-Rank the whole group.
 
     std::ostream& displayGroup(std::ostream&) const; // Display group ranking
-    void displaySchedule() const; //WILL DISPLAY SCHEDULE
+    void displaySchedule() const; //Display schedule
 private:
     void shiftingTable(std::vector<Team>&); // To rearrange a table of teams in order to generate a calendar
     void swapTeams(size_t, size_t); // For ranking purpose. Swap teams in parameter in a group ranking
+    void invertingAwayGames(); // inverting home and away teams
+
 
     std::vector<Team> table; // THIS IS the group of teams
     bool away_matches; // To know if there are home and away matches or not
