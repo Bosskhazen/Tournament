@@ -95,12 +95,14 @@ void Group::rankingTeams() {
 // DISPLAY
 ostream& Group::displayGroup(ostream& out) const{
     for(size_t i(0); i < table.size(); ++i){
-        out << i+1 << ". " << table[i].getName() << "\t"
-            << table[i].getPoints() << "pts\t";
-        if(table[i].getGoalDifference() < 0){
-            out << table[i].getGoalDifference() << "\n";
-        } else {
-            out << "+" << table[i].getGoalDifference() << "\n";
+        if(table[i].getName() != "dummy"){
+            out << i+1 << ". " << table[i].getName() << "\t"
+                << table[i].getPoints() << "pts\t";
+            if(table[i].getGoalDifference() < 0){
+                out << table[i].getGoalDifference() << "\n";
+            } else {
+                out << "+" << table[i].getGoalDifference() << "\n";
+            }
         }
     }
     return out;
