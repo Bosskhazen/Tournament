@@ -14,9 +14,9 @@ Current development status:
 - Calendar generator for groups with an even number of teams
 - Displaying calendar
 - Calendar generator for groups with an odd number of teams
+- Groups with home/away matchs
 
 Features to add:
-- Groups with home/away matchs
 - Handling tournaments with multiple groups
 - Handling group qualifications
 - Handling direct qualification matchs
