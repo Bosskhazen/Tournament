@@ -4,7 +4,7 @@ using namespace std;
 
 //----------------------CLASS INTERFACE-------------------------------------
 // CONSTRUCTOR
-Match::Match(Team& a, Team& b) : home_team(a), away_team(b), result({0,0}) {this->playing();}
+Match::Match(Team& a, Team& b) : home_team(a), away_team(b), result({0,0}) {}
 // INTERFACE
 void Match::playing() {
     // Reading match results
@@ -34,6 +34,17 @@ ostream& Match::displayResult(ostream& out) const{
         << "\n";
     return out;
 }
+void Match::displayResult() const{
+    cout << home_team.getName() << " " << result[0]
+    << " - " << result[1] << " " << away_team.getName()
+    << "\n";
 
+}
+/*Match& Match::operator=(Match const& m){
+    home_team = m.home_team;
+    away_team = m.away_team;
+    result[0] = m.result[0];
+    result[1] = m.result[1];
+}*/
 
 

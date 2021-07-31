@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Group.cpp" />
+		<Unit filename="Group.h" />
+		<Unit filename="Match.cpp" />
+		<Unit filename="Match.h" />
+		<Unit filename="Team.cpp" />
+		<Unit filename="Team.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
