@@ -13,7 +13,7 @@ public:
     void playing(); // Reading and saving match results
     std::ostream& displayResult(std::ostream& out) const; //For overloading <<operator
     void          displayResult() const;                  //To display directly with the method
-    Match& operator=(std::Match const& m);
+    //Match& operator=(std::Match const& m);
 
     Team& home_team; // PUT IN PUBLIC TO ALLOW DISPLAYING SCHEDULE IN Group.cpp. IT IS A BAD SOLUTION
     Team& away_team;

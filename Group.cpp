@@ -17,7 +17,7 @@ void Group::settingGroup(){
     if(leg == 'y'){
         away_matches = true;
     } else {*/
-        away_matches = false;
+        away_matches = true;
     /*}*/
 }
 void Group::fillingGroup() {
@@ -38,16 +38,17 @@ void Group::fillingGroup() {
 
 void Group::settingSchedule() {
     int nbLeg = table.size()-1; //The number of legs in any competition is the number of Teams -1
-    if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
+    /*if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
         nbLeg *= 2;
-    }
+    }*/
     for(int i(0); i < nbLeg; ++i){
         calendar.push_back(vector<Match>()); // Creation of the group/league legs. Each leg is a vector of Matches
     }
     vector<Team> copieTable(table);
     size_t teamH; //to store the home team position in the original table
-    size_t teamA; //to store the away team posision in the original table
+    size_t teamA; //to store the away team position in the original table
 
+    //-----------------ADDING HOME GAMES---------------------------------
     for(int i(0); i < nbLeg; ++i){ // To go through all legs
         for (size_t j(0); j < (copieTable.size()/2); ++j){ //To add matches for every legs
             for(size_t k(0); k < table.size(); ++k){ //This loop is for collecting the team index from the original table and not from the shifting copieTable
@@ -64,10 +65,36 @@ void Group::settingSchedule() {
         }
         shiftingTable(copieTable);// A Function to shift positions in the copy table to prepare for the next leg programming
     }
-    invertingAwayGames();//Inverting away games
+
+    //---------------ADDING AWAY GAMES---------------------------------
+    if(away_matches) { // The number of legs in a group/league is multiplied by 2 in case of home/Away matches (LOGIC)
+            for(int i(0); i < nbLeg; ++i){
+            calendar.push_back(vector<Match>()); // Preparing the calendar for away games
+        }
+
+        for(size_t i(nbLeg); i < nbLeg*2; ++i){ // To go through all away legs
+            for(size_t j(0); j < (copieTable.size()/2); ++j){ //To add matches for every legs
+                for(size_t k(0); k < table.size(); ++k) {
+                    if(copieTable[j].getName() == table[k].getName()){
+                        teamA = k;
+                    }
+                    if(copieTable[copieTable.size()-1-j].getName() == table[k].getName()){
+                        teamH = k;
+                    }
+                }
+                if((table[teamH].getName() != "dummy") and (table[teamA].getName() != "dummy")){
+                    calendar[i].push_back(Match(table[teamH], table[teamA]));
+                }
+
+            }
+            shiftingTable(copieTable);
+        }
+
+    }
+    //invertingAwayGames();//Inverting away games
 }
 
-void Group::invertingAwayGames(){
+/*void Group::invertingAwayGames(){
     size_t teamH;
     size_t teamA;
     for(size_t i = calendar.size()/2; i < calendar.size(); ++i){
@@ -83,7 +110,7 @@ void Group::invertingAwayGames(){
             calendar[i][j] = Match(table[teamH], table[teamA]); // Creating the new match with inverted teams
         }
     }
-}
+}*/
 
 void Group::playingMatches() {
     for(size_t i(0); i < calendar.size(); ++i){

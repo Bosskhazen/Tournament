@@ -18,15 +18,16 @@ public:
 
     std::ostream& displayGroup(std::ostream&) const; // Display group ranking
     void displaySchedule() const; //Display schedule
+
 private:
     void shiftingTable(std::vector<Team>&); // To rearrange a table of teams in order to generate a calendar
     void swapTeams(size_t, size_t); // For ranking purpose. Swap teams in parameter in a group ranking
-    void invertingAwayGames(); // inverting home and away teams
+    //void invertingAwayGames(); // inverting home and away teams
 
 
     std::vector<Team> table; // THIS IS the group of teams
     bool away_matches; // To know if there are home and away matches or not
-    std::vector<std::vector<Match>> calendar; // store all future games like a calendar like a calendar
+    std::vector<std::vector<Match>> calendar; // store all future games like a calendar and the results of the games
 
 };
 

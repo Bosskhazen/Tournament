@@ -40,11 +40,11 @@ void Match::displayResult() const{
     << "\n";
 
 }
-Match& Match::operator=(Match const& m){
+/*Match& Match::operator=(Match const& m){
     home_team = m.home_team;
     away_team = m.away_team;
     result[0] = m.result[0];
     result[1] = m.result[1];
-}
+}*/
 
 
